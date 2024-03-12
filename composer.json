@@ -1,0 +1,35 @@
+{
+  "name": "xin/php-tiktok-toolkit",
+  "description": "TikTok工具包",
+  "autoload": {
+    "psr-4": {
+      "Xin\\TiktokToolkit\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "晋",
+      "email": "1540175452@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "ext-json": "*",
+    "ext-openssl": "*",
+    "nyholm/psr7": "^1.5",
+    "nyholm/psr7-server": "^1.0",
+    "psr/http-client": "^1.0",
+    "guzzlehttp/guzzle": "^7.8",
+    "psr/simple-cache": "^1.0",
+    "symfony/cache": "^5.4|^6.0|^7.0",
+    "symfony/http-foundation": "^5.4|^6.0|^7.0",
+    "symfony/psr-http-message-bridge": "^2.1.2|^6.4.0",
+    "symfony/mime": "^5.4|^6.0|^7.0",
+    "symfony/http-client": "^5.4|^6.0|^7.0",
+    "symfony/polyfill-php81": "^1.25"
+  },
+  "require-dev": {
+    "mockery/mockery": "^1.4.4",
+    "symfony/var-dumper": "^5.2"
+  }
+}
