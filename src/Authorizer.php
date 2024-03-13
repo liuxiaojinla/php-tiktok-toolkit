@@ -95,7 +95,7 @@ class Authorizer
         }
 
         return $this->httpClient->request(
-            'POST',
+            'GET',
             'v2/user/info/',
             [
                 'query' => [
