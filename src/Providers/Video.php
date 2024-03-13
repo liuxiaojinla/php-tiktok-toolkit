@@ -58,7 +58,7 @@ class Video
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function init(array $data)
+    public function initPublish(array $data)
     {
         return $this->httpClient->request(
             'POST',
@@ -70,8 +70,8 @@ class Video
     }
 
     /**
-     * 查询视频上传的状态
-     * @param string $publishId
+     * 初始化上传到草稿箱
+     * @param array $data
      * @return array
      * @throws ClientExceptionInterface
      * @throws DecodingExceptionInterface
@@ -79,15 +79,13 @@ class Video
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function queryPublishStatus(string $publishId)
+    public function initInbox(array $data)
     {
         return $this->httpClient->request(
             'POST',
-            'v2/post/publish/status/fetch/',
+            'v2/post/publish/inbox/video/init/',
             [
-                'json' => [
-                    'publish_id' => $publishId,
-                ],
+                'json' => $data,
             ]
         )->toArray(false);
     }
@@ -115,7 +113,7 @@ class Video
             $uploadChunkSize = $fileSize;
         }
 
-        $response = $this->init([
+        $response = $this->initPublish([
             "post_info" => $postInfo,
             "source_info" => [
                 "source" => "FILE_UPLOAD",
@@ -126,27 +124,6 @@ class Video
         ]);
 
         return $this->completeUploadFile($response, $filePath, $fileSize, $uploadChunkSize, $chunkCount);
-    }
-
-    /**
-     * 初始化上传到草稿箱
-     * @param array $data
-     * @return array
-     * @throws ClientExceptionInterface
-     * @throws DecodingExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface
-     */
-    public function initInbox(array $data)
-    {
-        return $this->httpClient->request(
-            'POST',
-            'v2/post/publish/inbox/video/init/',
-            [
-                'json' => $data,
-            ]
-        )->toArray(false);
     }
 
     /**
@@ -181,6 +158,30 @@ class Video
         ]);
 
         return $this->completeUploadFile($response, $filePath, $fileSize, $uploadChunkSize, $chunkCount);
+    }
+
+
+    /**
+     * 查询视频上传的状态
+     * @param string $publishId
+     * @return array
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function queryPublishStatus(string $publishId)
+    {
+        return $this->httpClient->request(
+            'POST',
+            'v2/post/publish/status/fetch/',
+            [
+                'json' => [
+                    'publish_id' => $publishId,
+                ],
+            ]
+        )->toArray(false);
     }
 
     /**

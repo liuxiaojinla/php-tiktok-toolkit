@@ -7,6 +7,7 @@ use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Xin\TiktokToolkit\Authorizer;
 use Xin\TiktokToolkit\Contracts\AccessTokenAwareHttpClient;
 
 class Research
@@ -89,6 +90,7 @@ class Research
     /**
      * 获取用户信息
      * @param string $username
+     * @param string|null $fields
      * @return array
      * @throws ClientExceptionInterface
      * @throws DecodingExceptionInterface
@@ -101,7 +103,7 @@ class Research
     public function userInfo(string $username, string $fields = null)
     {
         if (empty($fields)) {
-            $fields = static::getUserInfoDefaultFields();
+            $fields = Authorizer::getUserInfoDefaultFields();
         }
 
         return $this->httpClient->request(
@@ -116,15 +118,6 @@ class Research
                 ],
             ]
         )->toArray(false);
-    }
-
-    /**
-     * 获取用户信息的默认字段
-     * @return string
-     */
-    public static function getUserInfoDefaultFields()
-    {
-        return 'display_name, bio_description, avatar_url, is_verified, follower_count, following_count, likes_count, video_count';
     }
 
     /**
@@ -147,7 +140,7 @@ class Research
     public function videoCommentList(array $params = [], string $fields = null)
     {
         if (empty($fields)) {
-            $fields = static::getUserInfoDefaultFields();
+            $fields = Authorizer::getUserInfoDefaultFields();
         }
 
         return $this->httpClient->request(
