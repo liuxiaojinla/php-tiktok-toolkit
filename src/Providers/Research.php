@@ -162,7 +162,7 @@ class Research
      */
     public static function getVideoCommentFields()
     {
-        return 'id, video_id, text, like_count, reply_count, parent_comment_id, create_time';
+        return 'id,video_id,text,like_count,reply_count,parent_comment_id,create_time';
     }
 
     /**

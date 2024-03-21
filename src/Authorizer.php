@@ -76,7 +76,7 @@ class Authorizer
      */
     public static function getUserInfoDefaultFields()
     {
-        return 'display_name, bio_description, avatar_url, is_verified, follower_count, following_count, likes_count, video_count';
+        return 'display_name,bio_description,avatar_url,is_verified,follower_count,following_count,likes_count,video_count';
     }
 
     /**
@@ -88,7 +88,7 @@ class Authorizer
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function getInfo()
+    public function getInfo($fields = null)
     {
         if (empty($fields)) {
             $fields = static::getUserInfoDefaultFields();
